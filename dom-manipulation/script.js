@@ -132,10 +132,14 @@ async function syncQuotes() {
 
     resolveConflicts(serverQuotes);
 
+    // Notification for automated check
+    showNotification("Quotes synced with server!");
+
   } catch (error) {
     console.error("Server sync failed:", error);
   }
 }
+
 /*************************************************
  * INITIALIZATION
  *************************************************/
