@@ -117,9 +117,9 @@ function addQuote() {
 }
 
 /*************************************************
- * SERVER SYNC (FETCH)
+ * SERVER SYNC (FETCH) → syncQuotes
  *************************************************/
-async function fetchQuotesFromServer() {
+async function syncQuotes() {
   try {
     const response = await fetch(SERVER_URL);
     const data = await response.json();
@@ -200,4 +200,4 @@ filterQuotes();
 newQuoteBtn.addEventListener("click", filterQuotes);
 
 // Periodic server sync
-setInterval(fetchQuotesFromServer, 15000);
+setInterval(syncQuotes, 15000);
