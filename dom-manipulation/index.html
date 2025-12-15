@@ -29,6 +29,16 @@ input, select, button { margin: 5px 0; padding: 8px; }
 <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
 <button id="addQuoteBtn">Add Quote</button>
 </div>
+<!-- JSON Import -->
+<input
+  type="file"
+  id="importFile"
+  accept=".json"
+  onchange="importFromJsonFile(event)"
+/>
+
+<!-- JSON Export -->
+<button onclick="exportToJson()">Export Quotes (JSON)</button>
 
 
 <script src="script.js"></script>
