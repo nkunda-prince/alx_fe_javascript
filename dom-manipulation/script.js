@@ -119,7 +119,7 @@ function addQuote() {
 /*************************************************
  * SERVER SYNC (FETCH)
  *************************************************/
-async function fetchQuotesFromServer() {
+async function syncQuotes() {   // renamed from fetchQuotesFromServer
   try {
     const response = await fetch(SERVER_URL);
     const data = await response.json();
@@ -137,22 +137,16 @@ async function fetchQuotesFromServer() {
 }
 
 /*************************************************
- * CONFLICT RESOLUTION (SERVER WINS)
+ * INITIALIZATION
  *************************************************/
-function resolveConflicts(serverQuotes) {
-  const localSerialized = JSON.stringify(quotes);
-  const serverSerialized = JSON.stringify(serverQuotes);
+populateCategories();
+createAddQuoteForm();
+filterQuotes();
+newQuoteBtn.addEventListener("click", filterQuotes);
 
-  if (localSerialized !== serverSerialized) {
-    // SERVER TAKES PRECEDENCE
-    quotes = serverQuotes;
-    saveQuotes();
-    populateCategories();
-    filterQuotes();
+// Periodic server sync
+setInterval(syncQuotes, 15000);   // updated to call syncQuotes
 
-    showNotification("⚠ Data synced from server. Local changes may have been overridden.");
-  }
-}
 
 /*************************************************
  * USER NOTIFICATION UI
