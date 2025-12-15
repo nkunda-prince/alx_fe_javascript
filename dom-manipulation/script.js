@@ -119,7 +119,7 @@ function addQuote() {
 /*************************************************
  * SERVER SYNC (FETCH)
  *************************************************/
-async function syncQuotes() {   // renamed from fetchQuotesFromServer
+async function syncQuotes() {
   try {
     const response = await fetch(SERVER_URL);
     const data = await response.json();
@@ -131,11 +131,11 @@ async function syncQuotes() {   // renamed from fetchQuotesFromServer
     }));
 
     resolveConflicts(serverQuotes);
+
   } catch (error) {
     console.error("Server sync failed:", error);
   }
 }
-
 /*************************************************
  * INITIALIZATION
  *************************************************/
