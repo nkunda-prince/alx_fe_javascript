@@ -117,9 +117,9 @@ function addQuote() {
 }
 
 /*************************************************
- * SERVER SYNC FUNCTION
+ * SERVER SYNC (FETCH)
  *************************************************/
-async function syncQuotes() {
+async function fetchQuotesFromServer() {
   try {
     const response = await fetch(SERVER_URL);
     const data = await response.json();
@@ -131,7 +131,6 @@ async function syncQuotes() {
     }));
 
     resolveConflicts(serverQuotes);
-
   } catch (error) {
     console.error("Server sync failed:", error);
   }
@@ -164,8 +163,6 @@ function showNotification(message) {
   note.style.background = "#ffeb3b";
   note.style.padding = "10px";
   note.style.margin = "10px 0";
-  note.style.fontWeight = "bold";
-  note.style.textAlign = "center";
 
   document.body.prepend(note);
 
@@ -202,5 +199,5 @@ createAddQuoteForm();
 filterQuotes();
 newQuoteBtn.addEventListener("click", filterQuotes);
 
-// Periodically sync with server
-setInterval(syncQuotes, 15000);
+// Periodic server sync
+setInterval(fetchQuotesFromServer, 15000);
