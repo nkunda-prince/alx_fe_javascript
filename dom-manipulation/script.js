@@ -72,6 +72,26 @@ function filterQuotes() {
 }
 
 /*************************************************
+ * POST QUOTE TO SERVER (MOCK)
+ *************************************************/
+async function postQuoteToServer(quote) {
+  try {
+    const response = await fetch(SERVER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(quote)
+    });
+
+    const result = await response.json();
+    console.log("Quote posted to server (mock):", result);
+  } catch (error) {
+    console.error("Failed to post quote:", error);
+  }
+}
+
+/*************************************************
  * ADD QUOTE
  *************************************************/
 function addQuote() {
@@ -83,11 +103,17 @@ function addQuote() {
     return;
   }
 
-  quotes.push({ text, category });
+  const newQuote = { text, category };
+
+  // Save locally
+  quotes.push(newQuote);
   saveQuotes();
   populateCategories();
   categoryFilter.value = category;
   filterQuotes();
+
+  // Send to server (mock POST)
+  postQuoteToServer(newQuote);
 }
 
 /*************************************************
@@ -174,4 +200,4 @@ filterQuotes();
 newQuoteBtn.addEventListener("click", filterQuotes);
 
 // Periodic server sync
-setInterval(fetchQuotesFromServer, SYNC_INTERVAL);
+setInterval(fetchQuotesFromServer, 15000);
