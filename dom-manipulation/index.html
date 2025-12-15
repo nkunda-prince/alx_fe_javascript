@@ -29,6 +29,12 @@ input, select, button { margin: 5px 0; padding: 8px; }
 <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
 <button id="addQuoteBtn">Add Quote</button>
 </div>
+
+  <!-- Category Filter -->
+<select id="categoryFilter" onchange="filterQuotes()">
+  <option value="all">All Categories</option>
+</select>
+
 <!-- JSON Import -->
 <input
   type="file"
